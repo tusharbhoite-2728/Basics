@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Table Complete Concepts Demo</title>
+
+  <style>
+   
+    table {
+      width: 100%;
+      border-collapse: collapse; 
+      margin: 20px 0;
+    }
+
+    caption {
+      caption-side: top;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    th, td {
+      border: 1px solid #333;
+      padding: 10px; 
+      text-align: center;
+    }
+
+    thead {
+      background-color: #f4f4f4;
+    }
+
+    tfoot {
+      background-color: #ddd;
+      font-weight: bold;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+   
+    .container {
+      overflow-x: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>HTML Table </h1>
+
+  <div class="container">
+
+    <table>
+
+     
+      <caption>Student Performance Report</caption>
+
+      
+      <colgroup>
+        <col span="1" style="background-color:#eef">
+        <col span="2" style="background-color:#ffe">
+        <col span="2" style="background-color:#efe">
+      </colgroup>
+
+     
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Marks</th>
+          <th scope="col">Grade</th>
+        </tr>
+      </thead>
+
+     
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Tushar</td>
+          <td>Math</td>
+          <td>95</td>
+          <td>A+</td>
+        </tr>
+
+        <tr>
+          <th scope="row">2</th>
+          <td rowspan="2">Gaurav</td> 
+          <td>Science</td>
+          <td>88</td>
+          <td>A</td>
+        </tr>
+
+        <tr>
+          <th scope="row">3</th>
+          <td>English</td>
+          <td>91</td>
+          <td>A+</td>
+        </tr>
+
+        <tr>
+          <th scope="row">4</th>
+          <td colspan="2">Bhavesh </td> 
+          <td>76</td>
+          <td>B</td>
+        </tr>
+      </tbody>
+
+   
+      <tfoot>
+        <tr>
+          <td colspan="3">Class Average</td>
+          <td>87</td>
+          <td>A</td>
+        </tr>
+      </tfoot>
+
+    </table>
+
+  </div>
+
+  
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      header {
+        background-color: #f0f0f0;
+        padding: 20px;
+        text-align: center;
+      }
+        main {
+            background-color: #d0d0d0;
+            margin: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            align-content: center;
+            padding: 15px;
+            width: 25%;
+            
+        }
+        main p {
+            line-height: 1.6;
+            display: inline-block;
+            display: block;
+            background-color: white ;
+            padding: 10px;
+        }
+        #left-side {
+            background-color: white ;
+            padding: 15px;
+            margin: 20px;
+            width: 25%;
+            float: right;
+            height: 600px;
+            display :flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            width: 25%;
+        }
+        #nav-items div {
+            margin-bottom: 10px;
+            display: flex;
+        }
+        footer {
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+            clear: both;
+        }
+        #right-side {
+            background-color: white ;
+            padding: 15px;
+            margin: 20px;
+            width: 25%;
+            float: right;
+            height: 600px;
+            display :flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            width: 25%;
+        }
+
+        .topnav li {
+            list-style-type: none;
+            margin: 30px;
+            display: inline-block;
+        }
+        .container {
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+        }
+
+       
+        aside section , article , div {
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: hsl(from color h s l);
+        }
+        aside nav , aside div {
+            background-color: #d0d0d0;
+            justify-content: center;
+        }
+
+
+    </style>
+</head>
+<body>
+      <header>
+
+    <h1>Welcome to My Website</h1>
+      </header>
+<div class="container">
+      <aside id="left-side">
+          <nav style="height: 45%;">
+              <ul id="nav-items" >
+                 <div><li><a href="#home">Home</a></li></div> 
+                  <div><li><a href="#about">About</a></li></div>
+                  <div><li><a href="#contact">Services</a></li></div>
+                  
+              </ul>
+          </nav>
+
+          <div style="height: 45%;">
+              <h2>Categories</h2>
+              <ul>
+                  <li>Category 1</li>
+                  <li>Category 2</li>
+                  <li>Category 3</li>
+              </ul>
+        </aside>
+        <main>
+            <p>You can create entire web layouts using the CSS float property. Float is easy to 
+                learn - you just need to remember how the float and clear properties work. 
+                Disadvantages: Floating elements are tied to the document flow, which may harm the 
+                flexibility. Learn more about float in our CSS Float and Clear chapter.
+            </p>
+        </main>
+
+        <aside id="right-side">
+           <section style="height: 30%; background-color: #e0e0e0;">
+                <h2>News</h2>
+                <p>Latest updates will be posted here.</p>
+
+           </section>
+
+           <div style="height: 30%; background-color: #e0e0e0;">
+                <h2>Advertisements</h2>
+                <p>Your ad could be here!</p>
+           </div>
+
+           <article style="height: 30%; background-color: #e0e0e0;">
+                <h2>Contact Info</h2>
+                <p>Email: tusharbhoite288@gmail.com</p>
+                <p>Phone: +1234567890</p>
+                
+           </article>
+                  
+        </aside>
+</div>        
+    <footer>
+        <p style="text-align: center;">&copy; 2024 My Website</p>
+    </footer>
+</body>
+</html>
