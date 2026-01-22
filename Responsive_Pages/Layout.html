@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Keep Clone</title>
+  <link rel="icon" type="image/x-icon" href="./keep.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #202124;
+    }
+
+    
+    .topbar {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 16px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .menu img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .search {
+      flex: 1;
+      max-width: 900px;
+      background: #f1f3f4;
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-left: 100px;
+      height: 50px;
+      margin-right: 200px;
+      
+    }
+
+    .search:hover {
+      box-shadow: 0 3px 3px rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+      border: #202124;
+    }
+
+    .search img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+    }
+
+    .search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .top-icons {
+      display: flex;
+      gap: 16px;
+      margin-left: 300px;
+    }
+
+    .top-icons img {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+   
+    .layout {
+      display: flex;
+    }
+
+   
+    .sidebar {
+      width: 260px;
+      padding-top: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 24px;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+    }
+
+    .nav-item img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nav-item.active {
+      background: #feefc3;
+      font-weight: 500;
+    }
+
+    .nav-item:hover {
+      background: #f1f3f4;
+    }
+
+    .content {
+      flex: 1;
+      padding: 32px 24px;
+    }
+
+    .note-input {
+      max-width: 600px;
+      margin: 0 auto 32px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: #5f6368;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5f6368;
+      margin-bottom: 12px;
+    }
+
+    .notes-grid {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .note-card {
+      width: 240px;
+      min-height: 120px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 8px;
+      left: 24px;
+      font-size: 12px;
+      color: #5f6368;
+    }
+
+    #profile {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+    .note-input input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+ 
+  <div class="topbar">
+
+   
+    <div class="menu">
+      <img src="./menu.png" alt="Menu">
+    </div>
+
+   
+    <div class="logo">
+      <img src="./keep.png" alt="Keep">
+      <span>Keep</span>
+    </div>
+
+  
+    <div class="search">
+      <img src="./search.png" alt="Search">
+      <input type="text" placeholder="Search">
+    </div>
+
+    
+    <div class="top-icons">
+      <img src="./refresh.png" alt="Refresh">
+      <img src="./view-list.png" alt="View">
+      <img src="./settings.png" alt="Settings">
+      <img src="./more.png" alt="More">
+      <img  id="profile" src="./tushar.jpg" alt="profile">
+    </div>
+  </div>
+
+  <div class="layout">
+
+   
+    <div class="sidebar">
+      <div class="nav-item active">
+        <img src="./idea.png" alt="">
+        <span>Notes</span>
+      </div>
+
+      <div class="nav-item">
+        <img src="./notification.png" alt="">
+        <span>Reminders</span>
+      </div>
+
+      <div class="nav-item">
+        <img src="./edit.png" alt="">
+        <span>Edit labels</span>
+      </div>
+
+      <div class="nav-item">
+        <img src="./archive.png" alt="">
+        <span>Archive</span>
+      </div>
+
+      <div class="nav-item">
+        <img src="./bin.png" alt="">
+        <span>Trash</span>
+      </div>
+    </div>
+
+   
+    <div class="content">
+      <div class="note-input"><input placeholder="Take a note..."></div>
+
+      <div class="section-title">PINNED</div>
+
+      <div class="notes-grid">
+        <div class="note-card">tushar</div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+</body>
+</html>
