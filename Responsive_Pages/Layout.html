@@ -43,8 +43,8 @@
     }
 
     .logo img {
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
     }
 
     .search {
@@ -63,7 +63,7 @@
     }
 
     .search:hover {
-      box-shadow: 0 3px 3px rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+      box-shadow: 0 3px 3px rgba(60,64,67,.3), 0 1px 3px 1px rgba(56, 60, 63, 0.15);
       border: #202124;
     }
 
@@ -184,7 +184,16 @@
       outline: none;
       font-size: 16px;
     }
-    
+     .note-input :hover {
+     
+      border  : #030303;
+    }
+
+    .top-icons img:hover {
+      cursor: pointer;
+        opacity: 1;
+    }
+
   </style>
 </head>
 
@@ -212,11 +221,11 @@
 
     
     <div class="top-icons">
-      <img src="./refresh.png" alt="Refresh">
-      <img src="./view-list.png" alt="View">
-      <img src="./settings.png" alt="Settings">
-      <img src="./more.png" alt="More">
-      <img  id="profile" src="./tushar.jpg" alt="profile">
+      <img src="./refresh.png" alt="Refresh" title="refresh">
+      <img src="./view-list.png" alt="View" title="View List">
+      <img src="./settings.png" alt="Settings" title="Settings">
+      <img src="./more.png" alt="More" title="More Options">
+      <img  id="profile" src="./tushar.jpg" alt="profile" title="My profile">
     </div>
   </div>
 
@@ -252,7 +261,7 @@
 
    
     <div class="content">
-      <div class="note-input"><input placeholder="Take a note..."></div>
+      <div class="note-input"><input type="text" placeholder="Take a note..."></div>
 
       <div class="section-title">PINNED</div>
 
@@ -262,7 +271,7 @@
     </div>
   </div>
 
- 
+  
 
 </body>
 </html>
