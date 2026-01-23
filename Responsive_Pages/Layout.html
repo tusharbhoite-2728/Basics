@@ -279,6 +279,11 @@
       notesGrid.appendChild(note);
       noteInput.value = "";
     });
+    noteInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        submitBtn.click();
+      }
+    });
   </script>
 
 </body>
