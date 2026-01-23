@@ -2,156 +2,186 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>2 Minute Typing Speed Test</title>
-
+<title>2-Minute Typing Speed Test</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #1e1e2f;
+    background: #1e1e2f; 
     color: #fff;
-    display: flex;
+    display: flex; 
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-
-  .container {
+    }
+  .container 
+  { 
     background: #2a2a40;
-    padding: 25px;
-    width: 500px;
+    padding: 25px; 
+    width: 550px;
     border-radius: 10px;
     text-align: center;
-  }
+    }
 
-  #quote {
+  #quote
+   { 
     background: #111;
     padding: 15px;
     border-radius: 5px;
-    margin-bottom: 15px;
-    text-align: left;
+    margin-bottom: 15px; 
+    text-align: left; 
     font-size: 15px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 120px;
+    line-height: 1.5;
+    max-height: 200px; 
+    overflow-y: auto;
+    }
+  textarea 
+  {
+    width: 100%; 
+    height: 120px; 
     font-size: 16px;
     padding: 10px;
     border-radius: 5px;
     border: none;
     resize: none;
-  }
+    }
 
-  .stats {
+  .stats 
+  { 
     display: flex;
     justify-content: space-between;
-    margin: 15px 0;
-  }
+    margin: 15px 0; 
+    }
+   button
+   { 
+   padding: 10px 20px;
+   font-size: 16px;
+   background: #4caf50;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ }
 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  button:hover {
+  button:hover 
+  { 
     background: #43a047;
-  }
+ }
+ 
 </style>
 </head>
-
 <body>
 
 <div class="container">
   <h1>2-Minute Typing Test</h1>
-
   <p id="quote"></p>
-
   <textarea id="input" placeholder="Click Start and type for 2 minutes..." disabled></textarea>
-
   <div class="stats">
     <span>Time Left: <strong id="time">120</strong>s</span>
     <span>WPM: <strong id="wpm">0</strong></span>
     <span>Accuracy: <strong id="accuracy">0</strong>%</span>
   </div>
-
   <button onclick="startTest()">Start</button>
 </div>
 
 <script>
-  const text = `Typing is an essential skill in the modern digital world. 
-  Whether you are a student, a programmer, a writer, or a professional working 
-  in an office, the ability to type quickly and accurately can save a lot of time. 
-  Speed is important, but accuracy matters just as much. When you type with fewer 
-  mistakes, you spend less time correcting errors and more time focusing on your 
-  actual work. Practicing regularly helps build muscle memory, which allows your 
-  fingers to move across the keyboard without conscious effort. Over time, this 
-  leads to better performance and confidence. The key to improvement is consistency, 
-  patience, and focus during practice sessions.`;
+const text = `Typing is an essential skill in the modern digital world. 
+Whether you are a student, a programmer, a writer, or a professional working 
+in an office, the ability to type quickly and accurately can save a lot of time. 
+Speed is important, but accuracy matters just as much. When you type with fewer 
+mistakes, you spend less time correcting errors and more time focusing on your 
+actual work. Practicing regularly helps build muscle memory, which allows your 
+fingers to move across the keyboard without conscious effort. Over time, this 
+leads to better performance and confidence. The key to improvement is consistency, 
+patience, and focus during practice sessions.`;
 
-  const quoteEl = document.getElementById("quote");
-  const inputEl = document.getElementById("input");
-  const timeEl = document.getElementById("time");
-  const wpmEl = document.getElementById("wpm");
-  const accuracyEl = document.getElementById("accuracy");
+// Normalize text: remove extra spaces, newlines, etc.
+function normalizeText(str) {
+  return str
+    .replace(/\r\n/g, '\n')   // normalize line breaks
+    .replace(/\n/g, ' ')      // convert newlines to spaces
+    .replace(/\s+/g, ' ')     // multiple spaces -> single space
+    .trim();
+}
 
-  let timeLeft = 120;
-  let timer;
+const originalText = normalizeText(text);
 
-  quoteEl.textContent = text;
+const quoteEl = document.getElementById("quote");
+const inputEl = document.getElementById("input");
+const timeEl = document.getElementById("time");
+const wpmEl = document.getElementById("wpm");
+const accuracyEl = document.getElementById("accuracy");
 
-  inputEl.addEventListener("input", () => {
-    if (inputEl.value.length >= text.length) {
-      clearInterval(timer);
-      inputEl.disabled = true;
-      calculateResult();
-    }
-  });
+let timeLeft = 120;
+let timer;
+let startTime;
+let testCompleted = false;
 
+quoteEl.textContent = originalText;
 
-  function startTest() {
-    inputEl.value = "";
-    inputEl.disabled = false;
-    inputEl.focus();
+inputEl.addEventListener("input", () => {
+  if (testCompleted) return;
 
-    timeLeft = 120;
+  const typedNormalized = normalizeText(inputEl.value);
+
+  
+  if (typedNormalized.length >= originalText.length) {
+    testCompleted = true;
+    finishTest();
+  } else {
+    updateLiveStats();
+  }
+});
+
+function startTest() {
+  inputEl.value = "";
+  inputEl.disabled = false;
+  inputEl.focus();
+
+  timeLeft = 120;
+  timeEl.textContent = timeLeft;
+  wpmEl.textContent = 0;
+  accuracyEl.textContent = 0;
+  testCompleted = false;
+  startTime = new Date();
+
+  clearInterval(timer);
+  timer = setInterval(() => {
+    timeLeft--;
     timeEl.textContent = timeLeft;
-    wpmEl.textContent = 0;
-    accuracyEl.textContent = 0;
+    if (!testCompleted) updateLiveStats();
 
-    clearInterval(timer);
-    timer = setInterval(() => {
-      timeLeft--;
-      timeEl.textContent = timeLeft;
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        inputEl.disabled = true;
-        calculateResult();
-      }
-    }, 1000);
-  }
-
-  function calculateResult() {
-    const typedText = inputEl.value;
-    const originalText = text;
-
-    let correct = 0;
-    for (let i = 0; i < typedText.length; i++) {
-      if (typedText[i] === originalText[i]) correct++;
+    if (timeLeft <= 0) {
+      finishTest();
     }
+  }, 1000);
+}
 
-    const accuracy = Math.round((correct / typedText.length) * 100) || 0;
-    accuracyEl.textContent = accuracy;
+function updateLiveStats() {
+  const typedNormalized = normalizeText(inputEl.value);
 
-    const words = typedText.trim().split(/\s+/).length;
-    const wpm = Math.round(words / 2); // 2 minutes
-    wpmEl.textContent = wpm;
+ 
+  let correctChars = 0;
+  const minLength = Math.min(typedNormalized.length, originalText.length);
+  for (let i = 0; i < minLength; i++) {
+    if (typedNormalized[i] === originalText[i]) correctChars++;
   }
+
+  const accuracy = typedNormalized.length === 0 ? 0 : Math.round((correctChars / typedNormalized.length) * 100);
+  accuracyEl.textContent = accuracy;
+
+  
+  const elapsedMinutes = (new Date() - startTime) / 1000 / 60;
+  const wpm = Math.round((typedNormalized.length / 5) / elapsedMinutes);
+  wpmEl.textContent = wpm;
+}
+
+function finishTest() {
+  clearInterval(timer);
+  inputEl.disabled = true;
+  testCompleted = true;
+  updateLiveStats();
+  alert(`Test Completed!\nWPM: ${wpmEl.textContent}\nAccuracy: ${accuracyEl.textContent}%`);
+}
 </script>
 
 </body>
