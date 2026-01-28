@@ -74,7 +74,7 @@
 <div class="container">
   <h1>2-Minute Typing Test</h1>
   <p id="quote"></p>
-  <textarea id="input" placeholder="Click Start and type for 2 minutes..." disabled></textarea>
+  <textarea id="input" placeholder="Choose accuracy over speed." disabled></textarea>
   <div class="stats">
     <span>Time Left: <strong id="time">120</strong>s</span>
     <span>WPM: <strong id="wpm">0</strong></span>
@@ -94,13 +94,12 @@ fingers to move across the keyboard without conscious effort. Over time, this
 leads to better performance and confidence. The key to improvement is consistency, 
 patience, and focus during practice sessions.`;
 
-// Normalize text: remove extra spaces, newlines, etc.
+
 function normalizeText(str) {
   return str
-    .replace(/\r\n/g, '\n')   // normalize line breaks
-    .replace(/\n/g, ' ')      // convert newlines to spaces
-    .replace(/\s+/g, ' ')     // multiple spaces -> single space
-    .trim();
+    .replace(/\r\n/g, '\n')   
+    .replace(/\n/g, ' ')      
+    .replace(/\s+/g, ' ') 
 }
 
 const originalText = normalizeText(text);
@@ -182,6 +181,8 @@ function finishTest() {
   updateLiveStats();
   alert(`Test Completed!\nWPM: ${wpmEl.textContent}\nAccuracy: ${accuracyEl.textContent}%`);
 }
+
+
 </script>
 
 </body>
