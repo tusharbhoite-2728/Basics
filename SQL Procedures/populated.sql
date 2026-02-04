@@ -1,0 +1,58 @@
+
+
+CREATE OR ALTER PROCEDURE PopulatePdTables
+    @MonthsToPopulate INT = 3,
+    @IntervalMinutes INT = 15
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @i INT = 1;
+    DECLARE @tableName NVARCHAR(50);
+    DECLARE @idColumn NVARCHAR(50);
+    DECLARE @sql NVARCHAR(MAX);
+    
+    -- Truncate to Midnight: Cast to DATE then back to DATETIME2
+    DECLARE @StartDate DATETIME2 = CAST(CAST(DATEADD(MONTH, -@MonthsToPopulate, GETDATE()) AS DATE) AS DATETIME2);
+
+    WHILE @i <= 20
+    BEGIN
+        SET @tableName = 'pd_' + CAST(@i AS NVARCHAR(10));
+        SET @idColumn = 'pd_id_' + CAST(@i AS NVARCHAR(10));
+
+        SET @sql = '
+        ;WITH DateSeries AS (
+            SELECT 
+                CAST(''' + CAST(@StartDate AS NVARCHAR(30)) + ''' AS DATETIME2) AS [ts],
+                CAST(ABS(CHECKSUM(NEWID())) % 10000 AS FLOAT) AS [val]
+            UNION ALL
+            SELECT 
+                DATEADD(MINUTE, ' + CAST(@IntervalMinutes AS NVARCHAR(10)) + ', [ts]),
+                [val] + (10000 + (ABS(CHECKSUM(NEWID())) % 10001))
+            FROM DateSeries
+            WHERE DATEADD(MINUTE, ' + CAST(@IntervalMinutes AS NVARCHAR(10)) + ', [ts]) < GETDATE()
+        )
+        INSERT INTO ' + QUOTENAME(@tableName) + ' (' + QUOTENAME(@idColumn) + ', [timestamp], [value])
+        SELECT 
+            ROW_NUMBER() OVER (ORDER BY [ts]), 
+            [ts], 
+            [val]
+        FROM DateSeries
+        OPTION (MAXRECURSION 0);';
+
+        PRINT 'Populating table: ' + @tableName + ' starting at ' + CAST(@StartDate AS NVARCHAR(30));
+        EXEC sp_executesql @sql;
+
+        SET @i = @i + 1;
+    END
+
+    PRINT 'All tables populated successfully.';
+END;
+GO
+
+
+EXEC PopulatePdTables;
+
+
+
+
