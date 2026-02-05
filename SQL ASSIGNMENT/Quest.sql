@@ -1,0 +1,12 @@
+
+
+
+SELECT TABLE_NAME from INFORMATION_SCHEMA.TABLES 
+where TABLE_NAME like 'pd_%'
+ORDER BY TABLE_NAME
+;
+
+
+
+
+
